@@ -1,70 +1,53 @@
-#!/bin/bash
+#!/bin/sh
 
-sudo useradd -G sudo -s /bin/bash -m chembl
-sudo echo "chembl:chemblvm"| sudo chpasswd
+echo "Installing Homebrew"
+ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
-sudo sysctl -w kernel.shmmax=2147483648
-sudo /sbin/iptables -A INPUT -i eth0 -p tcp --destination-port 5432 -j ACCEPT
+echo "Updating Homebrew"
+brew update
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/science
+brew tap homebrew/php
+brew tap homebrew/apache
+brew tap mcs07/cheminformatics
 
-sudo apt-get update
-sudo apt-get install -y apache2
-sudo apt-get install -y php5
-sudo apt-get install -y php5-pgsql
-sudo apt-get install -y git
-sudo apt-get install -y unzip
-sudo apt-get install -y ipython
-sudo apt-get install -y ipython-notebook
-sudo apt-get install -y ipython-qtconsole
-sudo apt-get install -y libboost-all-dev
-sudo apt-get install -y postgresql
-sudo apt-get install -y postgresql-server-dev-all
-sudo apt-get install -y postgresql-doc
-sudo apt-get install -y postgresql-contrib
-sudo apt-get install -y flex
-sudo apt-get install -y bison
-sudo apt-get install -y g++
-sudo apt-get install -y cmake
-sudo apt-get install -y unzip
-sudo apt-get install -y git
-sudo apt-get install -y python-numpy
-sudo apt-get install -y python-scipy
-sudo apt-get install -y python-matplotlib
-sudo apt-get install -y python-pip
-sudo apt-get install -y python-psycopg2
-sudo apt-get install -y python-imaging-tk
-sudo apt-get install -y python-pandas
-sudo apt-get install -y python-networkx
-sudo apt-get install -y python-sklearn
-sudo apt-get install -y libnss-mdns
-sudo apt-get install -y avahi-utils
-sudo apt-get install -y python-gobject
-sudo apt-get install -y python-dev
-sudo apt-get install -y phppgadmin
+echo "Installing homebrew packages"
+brew install git
+brew install cmake
+brew install wget
+brew install python
+brew install postgresql
+brew install boost --with-python
+brew install php55 --with-apache --with-pgsql
+brew install phppgadmin
+brew install rdkit --with-avalon --with-postgresql
+
+echo "Installing python packages"
+pip install -U pip
+pip install -U setuptools
+pip install -U virtualenv
+pip install -U virtualenvwrapper
+pip install -U numpy
+pip install -U scipy
+pip install -U matplotlib
+pip install -U cython
+pip install -U ipython
+pip install -U jinja2
+pip install -U scikit-learn
+pip install -U tornado
+pip install -U pandas
+pip install -U requests
+pip install -U mpld3
+pip install -U service_identity
+pip install -U paste
+pip install -U netifaces
+pip install -U psycopg2
+pip install -U pillow
+pip install -U networkx
+pip install -U lxml
 
 sudo -u postgres createuser -dsr chembl
-
-sudo pip install Cython
-sudo pip install -U ipython
-sudo pip install -U jinja2
-sudo pip install -U scikit-learn
-sudo pip install -U tornado
-sudo pip install -U pandas
-sudo pip install -U requests
-sudo pip install -U mpld3
-sudo pip install -U service_identity
-sudo pip install https://garage.maemo.org/frs/download.php/8363/python-brisa_0.10.3maemo0.tar.gz
-sudo pip install -U paste
-sudo pip install -U netifaces
-
-if grep -Fxq "ipv6" /etc/modules
-then
-    modprobe ipv6
-else
-    sudo su
-    echo ipv6 >> /etc/modules
-    exit
-fi
-
 
 cd /tmp
 sudo git clone https://github.com/chembl/mychembl_webapp.git
@@ -86,9 +69,7 @@ sudo curl -o /etc/init/mychembl-upnp.conf https://raw.githubusercontent.com/chem
 sudo curl -o /etc/avahi/services/mychembl.service https://raw.githubusercontent.com/chembl/mychembl/master/zeroconf/mychembl.service
 sudo curl -o /usr/bin/mychembl-upnp.py https://raw.githubusercontent.com/chembl/mychembl/master/zeroconf/mychembl-upnp.py
 sudo chmod +x /usr/bin/mychembl-upnp.py
-sudo mkdir /usr/share/themes/mychembl
-sudo curl -o /usr/share/themes/mychembl/mychembl.png https://raw.githubusercontent.com/chembl/mychembl/master/branding/mychembl.png
-sudo curl -o /lib/plymouth/themes/ubuntu-text/ubuntu-text.plymouth https://github.com/chembl/mychembl/blob/master/branding/ubuntu-text.plymouth
+
 sudo curl -o /etc/phppgadmin/apache.conf https://raw.githubusercontent.com/chembl/mychembl/master/configuration/mychembl_phppgadmin_httpd.conf
 sudo curl -o /etc/apache2/conf.d/phppgadmin https://raw.githubusercontent.com/chembl/mychembl/master/configuration/mychembl_phppgadmin_httpd.conf
 
@@ -97,6 +78,3 @@ curl -s https://raw.githubusercontent.com/chembl/mychembl/master/ipynb_setup.sh 
 curl -s https://raw.githubusercontent.com/chembl/mychembl/master/create_db.sh | sudo -i -u chembl bash
 curl -s https://raw.githubusercontent.com/chembl/mychembl/master/webservices/ws_setup.sh | sudo -i -u chembl bash
 curl -s https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/ipynb_deamonise.sh | sudo -i -u chembl bash
-
-sudo echo "GRUB_BACKGROUND=\"/usr/share/themes/mychembl/mychembl.png\"" >> /etc/default/grub
-sudo update-grub

@@ -1,12 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 
-mkdir /home/chembl/notebooks
-curl -o /home/chembl/notebooks/01_myChEMBL_introduction.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/01_myChEMBL_introduction.ipynb
-curl -o /home/chembl/notebooks/02_myChEMBL_web_services.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/02_myChEMBL_web_services.ipynb
-curl -o /home/chembl/notebooks/03_myChEMBL_predict_targets.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/03_myChEMBL_predict_targets.ipynb
-curl -o /home/chembl/notebooks/04_myChEMBL_plotting_tutorial.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/04_myChEMBL_plotting_tutorial.ipynb
-curl -o /home/chembl/notebooks/05_myChEMBL_mds_tutorial.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/05_myChEMBL_mds_tutorial.ipynb
-curl -o /home/chembl/notebooks/06_myChEMBL_differences_with_ChEMBL.ipynb https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/06_myChEMBL_differences_with_ChEMBL.ipynb
+echo "Installing iPython notebooks"
 
+pip install -U chembl_webresource_client
+
+# Download the iPython notebooks to ~/mychembl/notebooks
+mkdir -p ~/mychembl/notebooks
+cd ~/mychembl/notebooks
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/01_myChEMBL_introduction.ipynb
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/02_myChEMBL_web_services.ipynb
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/03_myChEMBL_predict_targets.ipynb
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/04_myChEMBL_plotting_tutorial.ipynb
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/05_myChEMBL_mds_tutorial.ipynb
+curl -O https://raw.githubusercontent.com/chembl/mychembl/master/ipython_notebooks/06_myChEMBL_differences_with_ChEMBL.ipynb
+
+# Create ipython profile with notebook_dir set to ~/mychembl/notebooks
 ipython profile create mychembl
-curl -o /home/chembl/.ipython/profile_mychembl/ipython_notebook_config.py https://raw.githubusercontent.com/chembl/mychembl/master/configuration/mychembl_ipython_notebook_config.py
+NBDIR="c.NotebookApp.notebook_dir = u'\/Users\/$USER\/mychembl\/notebooks'"
+sed -i '' "s/.*$NBDIR/$NBDIR/" "$HOME/.ipython/profile_mychembl/ipython_notebook_config.py"
+
+# Now we can view the iPython notebooks using: ipython notebook --profile=mychembl

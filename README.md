@@ -10,5 +10,6 @@ As this is intended to be run on an existing system instead of a virtual machine
 - Instead of overwriting configuration files completely, the necessary changes are made to existing configuration files in an effort to preserve any other customisations you might already have.
 - Instead of installing the myChEMBL launchpad and web app at the root level of the web server, files are installed to `~/Sites/mychembl` and are therefore accessible from `http://localhost/~username/mychembl`.
 - For safety, the Apache web server, PostgreSQL server and iPython notebook server are all configured to only listen to localhost and ignore requests from elsewhere by default.
+- As we are targeting OS X instead of Ubuntu, the homebrew package manager is used instead of `apt-get`.
 
 The `bootstrap.sh` script hasn’t been widely tested, so please take a minute to read through and understand what it does before running it.

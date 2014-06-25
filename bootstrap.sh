@@ -49,17 +49,23 @@ pip install -U lxml
 
 sudo -u postgres createuser -dsr chembl
 
-cd /tmp
-sudo git clone https://github.com/chembl/mychembl_webapp.git
-sudo git clone https://github.com/chembl/mychembl.git
-sudo rm /var/www -rf
-sudo mkdir /var/www
-sudo cp -r mychembl/launchpad/* /var/www/
-sudo mkdir /var/www/mychembl/
-sudo cp -r mychembl_webapp/* /var/www/mychembl/
-curl -O http://peter-ertl.com/jsme/download/JSME_2013-08-04.zip
-unzip JSME_2013-08-04.zip
-sudo mv JSME_2013-08-04/jsme /var/www/mychembl/static/js/
+
+echo "Installing myChEMBL web app"
+# Clone myChEMBL into a temporary directory
+mkdir -p ${TMPDIR}mychembl
+cd ${TMPDIR}mychembl
+git clone https://github.com/chembl/mychembl_webapp.git
+git clone https://github.com/chembl/mychembl.git
+# Copy launchpad and myChEMBL to ~/Sites
+cp -R ${TMPDIR}mychembl/mychembl/launchpad/ ~/Sites/mychembl
+cp -R ${TMPDIR}mychembl/mychembl_webapp/ ~/Sites/mychembl/mychembl
+# Add JSME
+curl -O http://peter-ertl.com/jsme/download/JSME_2013-10-13.zip
+unzip -q JSME_2013-10-13.zip
+rm -rf ~/Sites/mychembl/mychembl/static/js/jsme
+mv JSME_2013-10-13/jsme ~/Sites/mychembl/mychembl/static/js/
+rm -rf ${TMPDIR}mychembl
+
 sudo curl -o /etc/apache2/httpd.conf https://raw.githubusercontent.com/chembl/mychembl/master/configuration/launchpad_httpd.conf
 sudo curl -o /etc/apache2/apache2.conf https://raw.githubusercontent.com/chembl/mychembl/master/configuration/apache2.conf
 sudo curl -o /etc/apache2/envvars https://raw.githubusercontent.com/chembl/mychembl/master/configuration/apache2_envvars

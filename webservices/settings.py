@@ -74,7 +74,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/chembl/chembl_webservices/deployment/deployment/static/'
+STATIC_ROOT = os.path.expanduser('~/mychembl/chembl_webservices/deployment/deployment/static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -164,7 +164,7 @@ LOGGING = {
         'rot_file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/tmp/django_router.log'
+            'filename': os.path.expanduser('~/mychembl/chembl_webservices/deployment/deployment/logs/django_router.log')
         }
     },
     'loggers': {

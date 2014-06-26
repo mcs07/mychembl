@@ -2,8 +2,6 @@
 
 echo "Installing iPython notebooks"
 
-pip install -U chembl_webresource_client
-
 # Download the iPython notebooks to ~/mychembl/notebooks
 mkdir -p ~/mychembl/notebooks
 cd ~/mychembl/notebooks

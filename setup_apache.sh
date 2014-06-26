@@ -14,6 +14,12 @@ sudo sed -i '' "s/.*$OLD/$NEW/" "/etc/apache2/httpd.conf"
 # Ensure web server is only accessible from localhost to protect from outside world
 sudo sed -i '' "s/^Listen 80$/Listen 127.0.0.1:80/" "/etc/apache2/httpd.conf"
 
+# Add mod_wsgi LoadModule in Apache httpd.conf
+if ! grep -Fxq "LoadModule wsgi_module /usr/local/Cellar/mod_wsgi/3.4/libexec/mod_wsgi.so" "/etc/apache2/httpd.conf"
+then
+  echo "LoadModule wsgi_module /usr/local/Cellar/mod_wsgi/3.4/libexec/mod_wsgi.so" >> "/etc/apache2/httpd.conf"
+fi
+
 # Ensure $HOME/Sites is specified as Apache Directory
 mkdir -p ~/Sites/mychembl/mychembl
 if ! grep -Fq "<Directory \"$HOME/Sites/\">" "/etc/apache2/users/$USER.conf"
@@ -34,7 +40,5 @@ then
   sudo sed -i.old "s/^short_open_tag = Off$/short_open_tag = On/" "/usr/local/etc/php/5.5/php.ini"
 fi
 
-# Start Apache
+# (Re)start Apache
 sudo apachectl restart
-
-# TODO: mod_wsgi

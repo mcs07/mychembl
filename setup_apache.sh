@@ -31,6 +31,8 @@ then
     Order allow,deny
     Allow from all
 </Directory>
+
+Include $HOME/mychembl/chembl_webservices/deployment/deployment/chembl_webservices.inc
 " | sudo tee -a "/etc/apache2/users/$USER.conf"
 fi
 

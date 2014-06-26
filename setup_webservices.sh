@@ -16,7 +16,8 @@ curl -O https://raw.githubusercontent.com/mcs07/mychembl/master/webservices/urls
 curl -O https://raw.githubusercontent.com/mcs07/mychembl/master/webservices/wsgi.py
 
 # Add Apache configuration
-"WSGIApplicationGroup %{GLOBAL}
+echo "
+WSGIApplicationGroup %{GLOBAL}
 WSGIPassAuthorization On
 WSGIDaemonProcess webservices threads=4 python-path=$HOME/mychembl/chembl_webservices/deployment/:/usr/local/lib/python2.7/site-packages/
 WSGIScriptAlias /chemblws $HOME/mychembl/chembl_webservices/deployment/deployment/wsgi.py/chemblws

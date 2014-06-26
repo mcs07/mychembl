@@ -2,6 +2,7 @@
 
 echo "Setting up PostgreSQL database"
 initdb /usr/local/var/postgres -E utf8
+createuser -dsr chembl
 # Backup postgresql.conf
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 cp "/usr/local/var/postgres/postgresql.conf" "/usr/local/var/postgres/postgresql.conf-$NOW"

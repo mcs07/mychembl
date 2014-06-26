@@ -46,9 +46,6 @@ pip install -U pillow
 pip install -U networkx
 pip install -U lxml
 
-sudo -u postgres createuser -dsr chembl
-
-
 echo "Installing myChEMBL web app"
 # Clone myChEMBL into a temporary directory
 mkdir -p ${TMPDIR}mychembl

@@ -51,6 +51,12 @@ View the iPython notebooks using:
 
 ## MyChEMBL web app
 
-Visit the myChEMBL web app by going to http://localhost/~$USER/mychembl
+Visit the myChEMBL web app by going to `http://localhost/~$USER/mychembl`
 
-The web app files are stored at: ~/Sites/mychembl/mychembl
+The web app files are at: `~/Sites/mychembl/mychembl`
+
+## ChEMBL web services
+
+Acess the ChEMBL web services by going to `http://localhost/chemblws/docs`
+
+The web services Django app is at `~/mychembl/chembl_webservices`

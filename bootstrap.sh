@@ -20,7 +20,6 @@ brew install python
 brew install postgresql
 brew install boost --with-python
 brew install php55 --with-apache --with-pgsql
-brew install phppgadmin
 brew install rdkit --with-avalon --with-postgresql
 
 echo "Installing python packages"
@@ -93,9 +92,6 @@ fi
 # Start Apache
 sudo apachectl restart
 
-sudo curl -o /etc/phppgadmin/apache.conf https://raw.githubusercontent.com/chembl/mychembl/master/configuration/mychembl_phppgadmin_httpd.conf
-sudo curl -o /etc/apache2/conf.d/phppgadmin https://raw.githubusercontent.com/chembl/mychembl/master/configuration/mychembl_phppgadmin_httpd.conf
-
-curl -s https://raw.githubusercontent.com/chembl/mychembl/master/ipynb_setup.sh | sudo -i -u chembl bash
-curl -s https://raw.githubusercontent.com/chembl/mychembl/master/create_db.sh | sudo -i -u chembl bash
-curl -s https://raw.githubusercontent.com/chembl/mychembl/master/webservices/ws_setup.sh | sudo -i -u chembl bash
+curl -s https://raw.githubusercontent.com/chembl/mychembl/master/ipynb_setup.sh | sh
+curl -s https://raw.githubusercontent.com/chembl/mychembl/master/create_db.sh | sh
+curl -s https://raw.githubusercontent.com/chembl/mychembl/master/webservices/ws_setup.sh | sh

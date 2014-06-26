@@ -2,7 +2,7 @@
 
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
         </ul>
         <h3 class="text-muted">myChEMBL More Information</h3>
       </div>
@@ -28,17 +28,17 @@
           <h4><i class="fa fa-rocket"></i>&nbsp;Who is using myChEMBL?</h4>
           <p>We (the ChEMBL group) are using myChEMBL for training purposes and we are aware of many other academic and industrial users who have started using the system. We would like to hear from the community, so if you are using myChEMBL please <a href="mailto:mychembl@ebi.ac.uk">let us know</a>.</p>
 
-          <h4><i class="fa fa-rocket"></i>&nbsp;What is the difference between the <a href="/chemblws/docs/">Web Services hosted on myChEMBL</a> and the official <a href="https://www.ebi.ac.uk/chembl/ws">ChEMBL Web Services</a>?</h4>
+          <h4><i class="fa fa-rocket"></i>&nbsp;What is the difference between the <a href="chemblws/docs/">Web Services hosted on myChEMBL</a> and the official <a href="https://www.ebi.ac.uk/chembl/ws">ChEMBL Web Services</a>?</h4>
           <p>Both sets of Web Services use the same codebase and expose the same set of methods to the end user, so they can be considered functionally identical. Please note the official ChEMBL Web Web Services use an Oracle database and the Accelrys Direct chemical cartridge, where as the myChEMBL Web Services use a PostrgreSQL database and the RDKit chemical cartridge. This change may lead to different chemical search results being returned.</p>
 
-          <h4><i class="fa fa-rocket"></i>&nbsp;What is the difference between the <a href="/mychembl/app/home.php">myChEMBL Web Interface</a> and the official <a href="https://www.ebi.ac.uk/chembl">ChEMBL Web Interface</a>?</h4>
+          <h4><i class="fa fa-rocket"></i>&nbsp;What is the difference between the <a href="mychembl/app/home.php">myChEMBL Web Interface</a> and the official <a href="https://www.ebi.ac.uk/chembl">ChEMBL Web Interface</a>?</h4>
           <p>The myChEMBL Web Interface is completely independent from the official ChEMBL Web Interface and was developed by Rodrigo Ochoa during an internship with the ChEMBL group. The aim of the myChEMBL Web Interface is to provide users with an application, which demonstrates the chemical search functionality of the RDKit chemical cartridge, without any prior programming or SQL experience. The underlying codebase can be accessed here: <a href="https://github.com/chembl/mychembl_webapp">https://github.com/chembl/mychembl_webapp</a>.</p>
 
           <h4><i class="fa fa-rocket"></i>&nbsp;Do you plan to include the official <a href="https://www.ebi.ac.uk/chembl">ChEMBL Web Interface</a> with future releases of myChEMBL?</h4>
           <p>We have no plans to include the existing ChEMBL Web Interface with myChEMBL, this is mainly due to portability issues. We do plan an update of the official ChEMBL Web Interface and when this does happen it will become part of the myChEMBL distribution.</p>
 
           <h4><i class="fa fa-rocket"></i>&nbsp;Can you provide some more details on the ChEMBL database?</h4>
-          <p>Have a look at the <a href="/assets/img/chembl_18_schema.png">ChEMBL schema diagram</a> to get an idea of the data captured in the database and how the tables join together. You can then start using the <a href="phppgadmin">phpPgAdmin Interface</a> to query the database directly with SQL. (Note the schema diagram does not include the RDKit tables - see next question)</p>
+          <p>Have a look at the <a href="assets/img/chembl_18_schema.png">ChEMBL schema diagram</a> to get an idea of the data captured in the database and how the tables join together. You can then start using the <a href="phppgadmin">phpPgAdmin Interface</a> to query the database directly with SQL. (Note the schema diagram does not include the RDKit tables - see next question)</p>
 
           <h4><i class="fa fa-rocket"></i>&nbsp;Are there any differences between the 'core' ChEMBL release database schema and the myChEMBL database schema?</h4>
           <p>Yes, after we have installed the RDKit cartridge we create 2 additional tables, which are:
@@ -46,7 +46,7 @@
               <li><strong>mols_rdkit</strong> - contains the ChEMBL molecules RDKit representation in the column named 'm'.</li>
               <li><strong>fps_rdkit</strong> - contains six fingerprint representations of the ChEMBL molecules created using RDKit. For more details on the RDKit fingerprints please visit <a href="http://code.google.com/p/rdkit/wiki/FingerprintsInTheRDKit">this page</a>.</li>
             </ul>
-            Also, the <a href="/chemblws/docs/">Web Services hosted on myChEMBL</a> and the <a href="/mychembl/app/home.php">myChEMBL Web Interface</a> creates a number of temporary tables used to cache results. The Web Services use a table called <strong>ws_cache</strong> and the web interface uses a series of tables, whose names match the following pattern <strong>octmp_*</strong>. These tables can be ignored, but if disk space on the virtual machine does become limited, you may wish to truncate the <strong>ws_cache</strong> table using the following SQL:
+            Also, the <a href="chemblws/docs/">Web Services hosted on myChEMBL</a> and the <a href="mychembl/app/home.php">myChEMBL Web Interface</a> creates a number of temporary tables used to cache results. The Web Services use a table called <strong>ws_cache</strong> and the web interface uses a series of tables, whose names match the following pattern <strong>octmp_*</strong>. These tables can be ignored, but if disk space on the virtual machine does become limited, you may wish to truncate the <strong>ws_cache</strong> table using the following SQL:
            <br/>
            <br/>
            <pre class="pre-scrollable">TRUNCATE TABLE ws_cache;</pre>

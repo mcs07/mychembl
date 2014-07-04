@@ -14,11 +14,6 @@ As this is intended to be run on an existing system instead of a virtual machine
 
 The `bootstrap.sh` script hasn’t been widely tested, so please take a minute to read through and understand what it does before running it.
 
-## Current issues
-
-- chembl web services currently refuse to install with Python 2.7.7. You can get around this by manually downloading and modifying the version check in setup.py to allow version 2.7.7. ([Pull request submitted](https://github.com/chembl/chembl_webservices/pull/1))
-- mod_wsgi compiles against the system Python instead of the one provided by Homebrew. You can get around this by installing manually with configure option `--with-python=/usr/local/bin/python`. ([Pull request submitted](https://github.com/Homebrew/homebrew-apache/pull/31))
-
 ## Added and modified files
 
 - Homebrew installs packages in `/usr/local/`
